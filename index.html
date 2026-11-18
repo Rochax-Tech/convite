@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffe4ea">
+  <title>Um convite pra você ❤️</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bg-glow" aria-hidden="true"></div>
+  <div id="hearts" class="hearts" aria-hidden="true"></div>
+  <div id="burst" class="burst" aria-hidden="true"></div>
+
+  <main class="stage">
+
+    <!-- TELA 1 — O CONVITE -->
+    <section id="screen-invite" class="screen active" aria-labelledby="invite-title">
+      <div class="card invite-card">
+        <p class="script" id="greeting">Oi, Tayane… minha princesa 💕</p>
+        <p class="eyebrow">Tenho uma perguntinha pra você... ❤️</p>
+        <h1 id="invite-title">Você aceita sair comigo <span class="hl">sexta-feira</span>, após o almoço?</h1>
+
+        <div class="actions" id="actions">
+          <button id="btn-yes" class="btn btn-yes" type="button">SIM! ❤️</button>
+          <button id="btn-no" class="btn btn-no" type="button">NÃO 🙈</button>
+        </div>
+
+        <p id="no-msg" class="no-msg" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- TELA 2 — ESCOLHA DO PASSEIO -->
+    <section id="screen-choose" class="screen" hidden aria-labelledby="choose-title">
+      <button id="btn-back" class="back" type="button">← voltar</button>
+
+      <header class="choose-head">
+        <h2 id="choose-title">Ebaaa! Sabia que você aceitaria! ❤️</h2>
+        <p class="script big">Agora temos uma missão: escolher nosso destino!</p>
+      </header>
+
+      <div class="cards" id="cards">
+
+        <article class="option" data-choice="cafeteria" tabindex="-1">
+          <div class="art">
+            <svg viewBox="0 0 400 240" role="img" aria-label="Xícara de café com vapor em formato de coração">
+              <defs>
+                <linearGradient id="gCafe" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#ffe9d6"/><stop offset="1" stop-color="#ffc9b0"/>
+                </linearGradient>
+              </defs>
+              <rect width="400" height="240" fill="url(#gCafe)"/>
+              <circle cx="70" cy="60" r="26" fill="#fff" opacity=".35"/>
+              <circle cx="340" cy="190" r="40" fill="#fff" opacity=".25"/>
+              <rect x="0" y="190" width="400" height="50" fill="#8b4a3a" opacity=".25"/>
+              <ellipse cx="200" cy="196" rx="120" ry="16" fill="#7b1230" opacity=".18"/>
+              <ellipse cx="200" cy="184" rx="112" ry="20" fill="#fff"/>
+              <path d="M130 100h140v38c0 34-28 58-70 58s-70-24-70-58z" fill="#fff"/>
+              <path d="M270 112h14c20 0 20 38 0 38h-18" fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round"/>
+              <ellipse cx="200" cy="102" rx="70" ry="13" fill="#6b3a2a"/>
+              <ellipse cx="200" cy="104" rx="56" ry="8" fill="#8b5340"/>
+              <path d="M200 106c-8-6-14-12-8-17 3-3 7-1 8 2 1-3 5-5 8-2 6 5 0 11-8 17z" fill="#ffd1dc"/>
+              <path d="M170 86c-12-16 12-22 0-40M200 80c-12-16 12-22 0-40M230 86c-12-16 12-22 0-40" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".85">
+                <animate attributeName="opacity" values=".9;.3;.9" dur="3s" repeatCount="indefinite"/>
+              </path>
+              <path d="M96 168c0-14 14-20 24-10 10-10 24-4 24 10 0 16-24 28-24 28s-24-12-24-28z" fill="#e63950" opacity=".9" transform="translate(-28 -6) scale(.7)"/>
+            </svg>
+          </div>
+          <div class="body">
+            <h3>Cafeteria ☕</h3>
+            <p>Que tal conhecer aquela cafeteria que temos aqui em Vila Velha? Um cafezinho, uma boa conversa e um tempinho só nosso.</p>
+            <button class="btn btn-pick" type="button">Escolher esse ❤️</button>
+          </div>
+        </article>
+
+        <article class="option" data-choice="shopping" tabindex="-1">
+          <div class="art">
+            <svg viewBox="0 0 400 240" role="img" aria-label="Sacolas de compras com um coração">
+              <defs>
+                <linearGradient id="gShop" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#ffe0ea"/><stop offset="1" stop-color="#ffc2d4"/>
+                </linearGradient>
+              </defs>
+              <rect width="400" height="240" fill="url(#gShop)"/>
+              <circle cx="330" cy="50" r="30" fill="#fff" opacity=".4"/>
+              <circle cx="60" cy="170" r="44" fill="#fff" opacity=".25"/>
+              <rect y="200" width="400" height="40" fill="#7b1230" opacity=".12"/>
+              <!-- sacola grande -->
+              <path d="M120 96h110l10 104H110z" fill="#e63950"/>
+              <path d="M148 96v-14a27 27 0 0 1 54 0v14" fill="none" stroke="#7b1230" stroke-width="7" stroke-linecap="round"/>
+              <path d="M175 140c-10-8-18-16-9-23 5-4 10-1 9 3 0-4 5-7 10-3 9 7 1 15-10 23z" fill="#fff" transform="translate(0 6)"/>
+              <!-- sacola pequena -->
+              <path d="M236 128h84l8 72h-100z" fill="#fff"/>
+              <path d="M258 128v-10a20 20 0 0 1 40 0v10" fill="none" stroke="#7b1230" stroke-width="6" stroke-linecap="round"/>
+              <rect x="236" y="166" width="92" height="10" fill="#ffb3c6"/>
+              <!-- brilhos -->
+              <g fill="#fff"><path d="M70 60l4 10 10 4-10 4-4 10-4-10-10-4 10-4z"/><path d="M350 130l3 7 7 3-7 3-3 7-3-7-7-3 7-3z"/></g>
+              <path d="M60 190c-10-8-16-14-8-20 4-3 8-1 8 2 0-3 5-5 8-2 8 6 2 12-8 20z" fill="#e63950" opacity=".8" transform="translate(6 -8)"/>
+            </svg>
+          </div>
+          <div class="body">
+            <h3>Shopping 🛍️</h3>
+            <p>Nossa escolha que já apareceu na conversa do WhatsApp! Acho que seria uma ótima oportunidade para aproveitarmos juntos.</p>
+            <button class="btn btn-pick" type="button">Escolher esse ❤️</button>
+          </div>
+        </article>
+
+        <article class="option" data-choice="praia" tabindex="-1">
+          <div class="art">
+            <svg viewBox="0 0 400 240" role="img" aria-label="Praia no fim de tarde com sol e coqueiro">
+              <defs>
+                <linearGradient id="gSky" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#ffd9c7"/><stop offset=".55" stop-color="#ffc0cf"/><stop offset="1" stop-color="#ffe9f0"/>
+                </linearGradient>
+                <linearGradient id="gSea" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#7ec8e3"/><stop offset="1" stop-color="#4aa3c8"/>
+                </linearGradient>
+              </defs>
+              <rect width="400" height="240" fill="url(#gSky)"/>
+              <circle cx="250" cy="118" r="42" fill="#fff4d6"/>
+              <circle cx="250" cy="118" r="30" fill="#ffd07a"/>
+              <rect y="120" width="400" height="60" fill="url(#gSea)"/>
+              <path d="M0 140q25-10 50 0t50 0 50 0 50 0 50 0 50 0 50 0 50 0" fill="none" stroke="#fff" stroke-width="3" opacity=".7">
+                <animateTransform attributeName="transform" type="translate" values="0 0;-50 0" dur="4s" repeatCount="indefinite"/>
+              </path>
+              <path d="M0 158q25-10 50 0t50 0 50 0 50 0 50 0 50 0 50 0 50 0" fill="none" stroke="#fff" stroke-width="3" opacity=".5">
+                <animateTransform attributeName="transform" type="translate" values="-50 0;0 0" dur="5s" repeatCount="indefinite"/>
+              </path>
+              <path d="M0 178q60-14 130-6t140-4 130 8v64H0z" fill="#f6d9a8"/>
+              <path d="M0 210q80-12 170-4t230-6v40H0z" fill="#efc88f"/>
+              <!-- coqueiro -->
+              <path d="M82 200c6-30 8-60 4-92" fill="none" stroke="#8b5a3c" stroke-width="9" stroke-linecap="round"/>
+              <g fill="#3f9a6e"><path d="M86 108c-24-8-44 2-56 18 22-6 40-6 56-18z"/><path d="M86 108c22-14 44-12 60 2-22-2-42 4-60-2z"/><path d="M86 108c-6-22-22-34-44-34 14 8 26 20 44 34z"/><path d="M86 108c8-24 26-34 48-32-16 6-30 18-48 32z"/></g>
+              <!-- coração na areia -->
+              <path d="M290 212c-12-9-20-17-10-25 6-5 11-1 10 3 0-4 6-8 11-3 10 8 2 16-11 25z" fill="#e63950" opacity=".85"/>
+            </svg>
+          </div>
+          <div class="body">
+            <h3>Praia à tarde 🌊</h3>
+            <p>Uma caminhada pela praia, um tempinho sentados na areia, alguma coisa gostosa para comer e aproveitar a tarde juntos.</p>
+            <button class="btn btn-pick" type="button">Escolher esse ❤️</button>
+          </div>
+        </article>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- CONFIRMAÇÃO (modal próprio, sem alert) -->
+  <div id="overlay" class="overlay" hidden role="dialog" aria-modal="true" aria-labelledby="ov-title">
+    <div class="ov-card">
+      <div class="ov-heart" aria-hidden="true">❤</div>
+      <h3 id="ov-title">Boa escolha, minha princesa!</h3>
+      <p id="ov-text">Abrindo o WhatsApp com a mensagem prontinha… é só apertar <strong>ENVIAR</strong> 💌</p>
+      <p id="ov-warn" class="ov-warn" hidden></p>
+      <a id="ov-link" class="btn btn-yes ov-link" href="#" target="_blank" rel="noopener">Abrir WhatsApp</a>
+      <button id="ov-cancel" class="link-btn" type="button">trocar minha escolha</button>
+    </div>
+  </div>
+
+  <!-- registro da escolha (Netlify Forms; aparece em Site > Forms no painel do Netlify) -->
+  <form name="escolha" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
+    <input type="hidden" name="form-name" value="escolha">
+    <input name="bot-field">
+    <input name="escolha">
+    <input name="mensagem">
+  </form>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

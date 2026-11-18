@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Painel do convite</title>
+  <style>
+    :root{--wine:#7b1230;--rose:#ff5c8a;--red:#e63950;--bg:#fff6f8;--line:#ffcdd9}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,'Segoe UI',sans-serif;background:linear-gradient(160deg,#fff6f8,#ffe4ea);color:#4a1626;padding:20px 16px 60px}
+    .wrap{max-width:760px;margin:0 auto}
+    h1{font-family:Georgia,serif;color:var(--wine);margin:6px 0 2px}
+    .sub{margin:0 0 20px;opacity:.75}
+    .card{background:#fff;border-radius:20px;padding:20px;margin-bottom:18px;box-shadow:0 12px 34px -16px rgba(123,18,48,.35)}
+    h2{margin:0 0 12px;font-size:1.1rem;color:var(--wine)}
+    label{display:block;font-weight:600;font-size:.9rem;margin:12px 0 4px}
+    input,textarea{width:100%;font:inherit;padding:11px 13px;border:1.5px solid var(--line);border-radius:12px;background:#fffafb;color:inherit}
+    textarea{min-height:92px;resize:vertical}
+    input:focus,textarea:focus{outline:3px solid rgba(255,92,138,.35);border-color:var(--rose)}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media(max-width:560px){.row{grid-template-columns:1fr}}
+    .btn{display:inline-block;border:0;cursor:pointer;font:inherit;font-weight:700;padding:12px 20px;border-radius:999px;color:#fff;background:linear-gradient(135deg,var(--rose),var(--red));text-decoration:none;margin:6px 8px 0 0}
+    .btn.alt{background:var(--wine)}
+    .btn.ghost{background:#fff;color:var(--wine);border:1.5px solid var(--line)}
+    .opt{border-top:1px dashed var(--line);padding-top:6px;margin-top:10px}
+    .opt:first-of-type{border-top:0;margin-top:0}
+    .hint{font-size:.88rem;opacity:.8;line-height:1.5}
+    ol{padding-left:20px;line-height:1.7;margin:6px 0}
+    code{background:#ffe9ef;padding:1px 6px;border-radius:6px}
+    .ok{color:#1b7a43;font-weight:600;min-height:1.4em}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Painel do convite 💌</h1>
+  <p class="sub">Só pra você. Não tem link na página dela; guarde esse endereço (<code>/painel/</code>) só pra você.</p>
+
+  <div class="card">
+    <h2>1) Ver o que ela escolheu</h2>
+    <p class="hint">Cada clique dela num passeio é registrado automaticamente no Netlify.</p>
+    <ol>
+      <li>Abra o seu site no <strong>app.netlify.com</strong></li>
+      <li>Menu <strong>Forms</strong> → formulário <code>escolha</code></li>
+      <li>Cada envio mostra a opção escolhida, a mensagem e o horário.</li>
+      <li>Para receber aviso por e-mail: <strong>Forms → Form notifications → Add notification → Email</strong>.</li>
+    </ol>
+    <p class="hint">Na primeira publicação, confira em <strong>Site configuration → Forms</strong> se a detecção de formulários está ativada.</p>
+  </div>
+
+  <div class="card">
+    <h2>2) Editar textos e número</h2>
+    <p class="hint">Mude o que quiser, teste os links e baixe o novo <code>config.js</code>. Depois é só substituir o arquivo na pasta, subir no GitHub e o Netlify publica sozinho.</p>
+    <div class="row">
+      <div><label for="nome">Nome</label><input id="nome"></div>
+      <div><label for="apelido">Apelido</label><input id="apelido"></div>
+    </div>
+    <label for="numero">Seu WhatsApp (DDI + DDD + número)</label>
+    <input id="numero" inputmode="numeric" placeholder="5527988840318">
+
+    <div class="opt"><label for="m-cafeteria">Mensagem — Cafeteria ☕</label><textarea id="m-cafeteria"></textarea>
+      <a class="btn ghost" id="t-cafeteria" target="_blank" rel="noopener">Testar link</a></div>
+    <div class="opt"><label for="m-shopping">Mensagem — Shopping 🛍️</label><textarea id="m-shopping"></textarea>
+      <a class="btn ghost" id="t-shopping" target="_blank" rel="noopener">Testar link</a></div>
+    <div class="opt"><label for="m-praia">Mensagem — Praia 🌊</label><textarea id="m-praia"></textarea>
+      <a class="btn ghost" id="t-praia" target="_blank" rel="noopener">Testar link</a></div>
+
+    <button class="btn" id="baixar" type="button">Baixar config.js</button>
+    <button class="btn alt" id="copiar" type="button">Copiar conteúdo</button>
+    <button class="btn ghost" id="restaurar" type="button">Restaurar atual</button>
+    <p class="ok" id="ok" role="status"></p>
+  </div>
+</div>
+
+<script src="../config.js"></script>
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const keys = ['cafeteria', 'shopping', 'praia'];
+  const q = s => (s || '').replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\$\{/g, '\\${');
+  const esc = s => JSON.stringify(s);
+
+  function load() {
+    $('nome').value = CONFIG.nome;
+    $('apelido').value = CONFIG.apelido;
+    $('numero').value = WHATSAPP_NUMBER;
+    keys.forEach(k => $('m-' + k).value = CONFIG.mensagens[k]);
+    links();
+  }
+  function digits() { return $('numero').value.replace(/\D/g, ''); }
+  function links() {
+    keys.forEach(k => {
+      $('t-' + k).href = `https://wa.me/${digits()}?text=${encodeURIComponent($('m-' + k).value)}`;
+    });
+  }
+  function build() {
+    return `/* ============================================================
+   CONFIGURAÇÃO — gerado pelo painel ❤️
+   ============================================================ */
+
+// Telefone em formato internacional (DDI + DDD + número, só dígitos)
+const WHATSAPP_NUMBER = ${esc(digits())};
+
+const CONFIG = {
+  nome: ${esc($('nome').value)},
+  apelido: ${esc($('apelido').value)},
+
+  mensagens: {
+    cafeteria:
+      ${esc($('m-cafeteria').value)},
+    shopping:
+      ${esc($('m-shopping').value)},
+    praia:
+      ${esc($('m-praia').value)}
+  }
+};
+`;
+  }
+  function say(t) { $('ok').textContent = t; setTimeout(() => $('ok').textContent = '', 4000); }
+
+  ['nome','apelido','numero','m-cafeteria','m-shopping','m-praia'].forEach(id => $(id).addEventListener('input', links));
+  $('restaurar').onclick = () => { load(); say('Valores do config.js atual restaurados.'); };
+  $('baixar').onclick = () => {
+    if (digits().length < 12) { say('Confira o número: precisa de DDI + DDD + número (ex.: 5527988840318).'); return; }
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([build()], { type: 'text/javascript;charset=utf-8' }));
+    a.download = 'config.js';
+    a.click();
+    say('config.js baixado! Substitua o da pasta do site e suba no GitHub.');
+  };
+  $('copiar').onclick = async () => {
+    try { await navigator.clipboard.writeText(build()); say('Conteúdo copiado!'); }
+    catch (_) { say('Não consegui copiar; use o botão de baixar.'); }
+  };
+  load();
+})();
+</script>
+</body>
+</html>
